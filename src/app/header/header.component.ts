@@ -6,14 +6,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  @Output('appRouteChanged') selectedRoute = new EventEmitter<string>();
-
   collapsed = true;
   constructor() {}
 
   ngOnInit(): void {}
-
-  onSelect(route: string) {
-    this.selectedRoute.emit(route);
-  }
 }

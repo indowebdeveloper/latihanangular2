@@ -10,11 +10,5 @@ import { Recipe } from '../recipe.model';
 export class RecipeItemComponent implements OnInit {
   @Input('recipeData') recipe: Recipe;
 
-  constructor(private rcpService: RecipeService) {}
-
   ngOnInit(): void {}
-
-  onSelected() {
-    this.rcpService.recipeSelected.emit(this.recipe);
-  }
 }

@@ -5,9 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  activeRoute: string = 'recipe';
-  setNavigate(route: string) {
-    this.activeRoute = route;
-  }
-}
+export class AppComponent {}
