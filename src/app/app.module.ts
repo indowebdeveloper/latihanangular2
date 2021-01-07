@@ -1,35 +1,29 @@
-import { DropdownDirective } from './shared/dropdown.directive';
+import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
+import { RecipesModule } from './recipes/recipes.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { RecipeListComponent } from './recipes/recipe-list/recipe-list.component';
-import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
-import { RecipeItemComponent } from './recipes/recipe-list/recipe-item/recipe-item.component';
-import { ShoppingListComponent } from './shopping-list/shopping-list.component';
-import { ShoppingEditComponent } from './shopping-list/shopping-edit/shopping-edit.component';
-import { FormsModule } from '@angular/forms';
-import { NoSelectedRecipeComponent } from './recipes/no-selected-recipe/no-selected-recipe.component';
-import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { CoreModule } from './core.module';
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
-    DropdownDirective,
-    NoSelectedRecipeComponent,
-    RecipeEditComponent,
+  declarations: [AppComponent, HeaderComponent],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    LoadingBarHttpClientModule,
+    RecipesModule,
+    ShoppingListModule,
+    SharedModule,
+    CoreModule,
+    AuthModule,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

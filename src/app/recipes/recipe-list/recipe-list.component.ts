@@ -18,7 +18,10 @@ export class RecipeListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.recipes = this.rcpService.getRecipes();
+    this.recipes = this.rcpService.getRecipes(); // kita tetep butuh subscribe, karena model recipes nya kan di outsource
+    this.rcpService.recipesChanged.subscribe(
+      (rcps: Recipe[]) => (this.recipes = rcps)
+    );
   }
 
   newRecipe() {

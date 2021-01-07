@@ -16,19 +16,27 @@
       (window:resize)="collapsed = true"
     >
       <ul class="nav navbar-nav">
-        <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
+        <li routerLinkActive="active" *ngIf="isAuth">
+          <a routerLink="/recipes">Recipes</a>
+        </li>
         <li routerLinkActive="active">
           <a routerLink="/shopping-list">Shopping List</a>
         </li>
+        <li routerLinkActive="active" *ngIf="!isAuth">
+          <a routerLink="/auth">Authenticate</a>
+        </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown" appDropdown>
+        <li *ngIf="isAuth">
+          <a style="cursor: pointer" (click)="logout()">Logout</a>
+        </li>
+        <li class="dropdown" appDropdown *ngIf="isAuth">
           <a class="dropdown-toggle" role="button"
             >Manage <span class="caret"></span
           ></a>
           <ul class="dropdown-menu">
-            <li><a>Save</a></li>
-            <li><a>Fetching Data</a></li>
+            <li><a (click)="saveData()">Save</a></li>
+            <li><a (click)="fetchData()">Fetching Data</a></li>
           </ul>
         </li>
       </ul>
