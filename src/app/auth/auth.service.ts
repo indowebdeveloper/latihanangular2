@@ -1,3 +1,4 @@
+import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 import { User } from './user.model';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -19,7 +20,7 @@ export interface AuthResponseData {
 export class AuthService {
   user = new BehaviorSubject<User>(null);
   private tokenExpTimer: any;
-  apiKey = 'AIzaSyCI-f5bYmWjkyNeE5uVIi-l3dqR4ecT18Y';
+  private apiKey = environment.firebaseApiKey;
   constructor(private http: HttpClient, private router: Router) {}
 
   signUp(mail: string, pass: string) {
