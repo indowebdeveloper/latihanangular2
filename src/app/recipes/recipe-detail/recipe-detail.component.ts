@@ -1,8 +1,11 @@
+import { map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
 import { RecipeService } from './../recipes.service';
 import { Recipe } from './../recipe-list/recipe.model';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
+import * as fromRoot from '../../store/app.reducer';
+import * as RecipeActions from '../store/recipe.actions';
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
@@ -13,14 +16,23 @@ export class RecipeDetailComponent implements OnInit {
   constructor(
     private rcpService: RecipeService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store<fromRoot.AppState>
   ) {}
 
   ngOnInit(): void {
-    console.log('its from detail');
     // this.recipe = this.rcpService.getRecipe(+this.route.snapshot.params['id']);
     this.route.params.subscribe((params: Params) => {
-      this.recipe = this.rcpService.getRecipe(+params['id']);
+      this.store
+        .select('recipes')
+        .pipe(
+          map((rcpsState) => {
+            return rcpsState.recipes;
+          })
+        )
+        .subscribe((rcps) => {
+          this.recipe = rcps.find((obj) => obj.id == +params['id']);
+        });
     });
   }
 
@@ -29,7 +41,8 @@ export class RecipeDetailComponent implements OnInit {
   }
 
   deleteRecipe() {
-    this.rcpService.deleteRecipe(this.recipe.id);
+    // this.rcpService.deleteRecipe(this.recipe.id);
+    this.store.dispatch(new RecipeActions.DeleteRecipe(this.recipe.id));
     // navigate
     this.router.navigate(['../'], { relativeTo: this.route });
   }
